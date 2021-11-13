@@ -3,270 +3,46 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        .time {
-            margin: 50px auto;
-            font-size: 80px;
-            text-align: center;
-        }
-        
-        .buttons {
-            margin: 0 auto;
-            display: flex;
-            width: 360px;
-        }
-        
-        .button {
-            width: 100px;
-            height: 40px;
-            text-align: center;
-            color: white;
-            background-color: rgba(255, 68, 0, 0.904);
-            font-size: 15px;
-            margin: 0 10px;
-            border-width: 0;
-            border-radius: 5px;
-        }
-        
-        .button:hover {
-            background-color: rgb(206, 23, 23);
-        }
-        
-        .button:focus {
-            outline-width: 0;
-        }
-        
-        .check {
-            background-color: rgb(255, 182, 155);
-        }
-        
-        .container {
-            margin: 30px auto;
-            display: flex;
-            width: 900px;
-            justify-content: space-between;
-        }
-        
-        .left,
-        .right {
-            width: 400px;
-            height: 400px;
-            outline: 1px solid lightgray;
-        }
-        
-        .left,
-        .right {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        
-        .puzzle {
-            width: 100px;
-            height: 100px;
-            background: url(1.png);
-            background-repeat: no-repeat;
-        }
-        
-        .puzzle2 {
-            width: 100px;
-            height: 100px;
-            color: white;
-        }
-        
-        .puzzle2::selection {
-            background: transparent;
-        }
-        
-        .active {
-            background-color: black;
-        }
-        
-        .background {
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(105, 105, 105, 0.7);
-            position: absolute;
-            left: 0;
-            top: 0;
-            display: none;
-        }
-        
-        .stillHaveTime,
-        .lose,
-        .win {
-            margin: 20px auto;
-            width: 700px;
-            position: absolute;
-            top: 20px;
-            left: 0;
-            right: 0;
-            border: 1px solid black;
-            padding-top: 20px;
-            border-radius: 5px;
-            display: none;
-            background-color: white;
-        }
-        
-        h2,
-        h3 {
-            margin: 20px 0;
-            text-align: center;
-            font-size: 30px;
-        }
-        
-        .close,
-        .check2,
-        .close2,
-        .close3 {
-            margin: 20px 20px;
-            width: 70px;
-            height: 40px;
-            color: white;
-            border-radius: 5px;
-            border-width: 0;
-        }
-        
-        .close,
-        .close2,
-        .close3 {
-            background-color: rgba(255, 68, 0, 0.904);
-        }
-        
-        .close:hover {
-            background-color: rgb(206, 23, 23);
-        }
-        
-        .close:focus {
-            box-shadow: 0 0 2px 2px rgba(178, 34, 34, 0.8);
-            outline-width: 0;
-        }
-        
-        .check2 {
-            background-color: forestgreen;
-        }
-        
-        .check2:hover {
-            background-color: green;
-        }
-        
-        .check2:focus {
-            box-shadow: 0 0 2px 2px rgba(0, 128, 0, 0.5);
-            outline-width: 0;
-        }
-        
-        .close2,
-        .close3 {
-            margin: 20px auto;
-            display: block;
-        }
-        
-        .buttons2 {
-            text-align: center;
-        }
-        
-        .close2:hover {
-            background-color: rgb(206, 23, 23);
-        }
-        
-        .close2:focus {
-            box-shadow: 0 0 2px 2px rgba(178, 34, 34, 0.8);
-            outline-width: 0;
-        }
-        
-        .close3:hover {
-            background-color: rgb(206, 23, 23);
-        }
-        
-        .close3:focus {
-            box-shadow: 0 0 2px 2px rgba(178, 34, 34, 0.8);
-            outline-width: 0;
-        }
-    </style>
+    <title>Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="time">01:00</div>
+    <div class="dark"></div>
+    <div class="modal-window">
+        <div class="ask-window">
+            <h1>You still have time, are you sure? <span id="window-timer">00:00</span></h1>
+            <button class='btn close'>close</button>
+            <button class='btn check'>check</button>
+        </div>
+        <div class="win-window">
+            <h1>Woohoo, well done, you did it!</h1>
+            <button class="btn close">close</button>
+        </div>
+        <div class="lose-window">
+            <h1>It's a pity, but you lost</h1>
+            <button class="btn close">close</button>
+        </div>
+    </div>
+    <div class="timer"><span>01</span>:<span>00</span></div>
     <div class="buttons">
-        <button class="button start">Start game</button>
-        <button class="button check" disabled>Check result</button>
-        <button class="button new" onClick="window.location.reload()">New game</button>
+        <button class='btn' id='start'>Start</button>
+        <button class='btn' id='check' disabled>Check</button>
+        <button class='btn' id='new-game'>New game</button>
     </div>
-    <div class="container">
-        <div class="sort left">
-            <div class="puzzle"></div>
-            <div class="puzzle"></div>
-            <div class="puzzle"></div>
-            <div class="puzzle"></div>
-            <div class="puzzle"></div>
-            <div class="puzzle"></div>
-            <div class="puzzle"></div>
-            <div class="puzzle"></div>
-            <div class="puzzle"></div>
-            <div class="puzzle"></div>
-            <div class="puzzle"></div>
-            <div class="puzzle"></div>
-            <div class="puzzle"></div>
-            <div class="puzzle"></div>
-            <div class="puzzle"></div>
-            <div class="puzzle"></div>
-        </div>
-        <div class="sort right">
-            <div class="puzzle2"></div>
-            <div class="puzzle2"></div>
-            <div class="puzzle2"></div>
-            <div class="puzzle2"></div>
-            <div class="puzzle2"></div>
-            <div class="puzzle2"></div>
-            <div class="puzzle2"></div>
-            <div class="puzzle2"></div>
-            <div class="puzzle2"></div>
-            <div class="puzzle2"></div>
-            <div class="puzzle2"></div>
-            <div class="puzzle2"></div>
-            <div class="puzzle2"></div>
-            <div class="puzzle2"></div>
-            <div class="puzzle2"></div>
-            <div class="puzzle2"></div>
-        </div>
 
+    <div class="puzzle-container">
+        <div class="left-box box">
+        </div>
+        <div class="right-box box">
+        </div>
     </div>
-    <div class="background">
-        <div class="stillHaveTime">
-            <hr>
-            <h2>You still have time, you sure? 01:00</h2>
-            <hr>
-            <div class="buttons2">
-                <button class="close">Close</button>
-                <button class="check2">Check</button>
 
-            </div>
-        </div>
-        <div class="lose">
-            <hr>
-            <h3>It's pity, but you lost</h2>
-                <hr>
-                <button class="close2">Close</button>
-        </div>
-        <div class="win">
-            <hr>
-            <h3>You did it</h2>
-                <hr>
-                <button class="close3">Close</button>
-        </div>
 
-    </div>
+
 
     <script src="jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </body>
 
